@@ -10,9 +10,9 @@
 ## Main Screen
 
 ### Header
-| Home | Create New Issue | Administrator Page |  
-| :---- |
-|  |  | ||
+- Home
+- Create New Issue 
+- Administrator Page  
 
 ### My Assignments
 Titles of tasks assigned to me
