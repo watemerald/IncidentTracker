@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for incident in incidents %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+            </div>
+            <p class="article-content">{{ incident.category }}</p>
+            <p class="article-content">{{ incident.description }}</p>
+            <p class="article-content">{{ incident.date_posted }}</p>
+            <p class="article-content">{{ incident.state }}</p>
+            <p class="article-content">{{ incident.poc }}</p>
+            <p class="article-content">{{ incident.tag }}</p>
+            <p class="article-content">{{ incident.assignee }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
