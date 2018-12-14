@@ -1,15 +1,18 @@
 version: '3'
-services:
+services:    
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: adelphi
+    volumes:
+      - ./postgres-data/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
   web:
     build: .
     ports:
       - 80:5000
     depends_on:
       - postgres
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_PASSWORD: adelphi
-    ports:
-      - 5433:5432
-    
+  
