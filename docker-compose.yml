@@ -1,0 +1,7 @@
+version: '3'
+services: 
+  incidtracker:
+    build: .
+    ports:
+      - 80:5000
+    
