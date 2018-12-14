@@ -1,15 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from flask_wtf.file import FileField, FileAllowed
+from flask_login import current_user
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from incidtracker.models import User, Incident
+from flaskblog.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    role = StringField('Role', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -24,21 +28,19 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class IncidentForm(FlaskForm):
-    category = SelectField(choices=['A','B','C'], validators=[DataRequired()])
-    description = StringField('Description', validators=[DataRequired()])
-    state = SelectField(choices=['A', 'B', 'C'], validators=[DataRequired()])
-    poc = StringField('Email', validators=[DataRequired(), Email()])
-    tag = StringField('Tag', validators=[DataRequired()])
-    assignee = StringField('Username', validators=[DataRequired()])
-    submit = SubmitField('Create')
 
-    def validate_assignee(self, assignee):
-        user = User.query.filter_by(username=assignee.data).first()
-        if user:
-            raise ValidationError('That assignee is not exist. Please choose a different one.')
+
+class PostForm(FlaskForm):
+    category = StringField('Category', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    tags = StringField('Tags', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    assignee = StringField('Assignee', validators=[DataRequired()])
+    submit = SubmitField('Post')

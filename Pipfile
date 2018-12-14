@@ -6,9 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+flask = "*"
 flask-sqlalchemy = "*"
-psycopg2 = "*"
-flask-migrate = "*"
+flask-bcrypt = "*"
+flask-login = "*"
+pillow = "*"
+flask-wtf = "*"
 
 [requires]
 python_version = "3.7"

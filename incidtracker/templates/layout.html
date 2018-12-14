@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>Flask Blog - {{ title }}</title>
+        <title>Incident Tracker - {{ title }}</title>
     {% else %}
-        <title>Flask Blog</title>
+        <title>Incident Tracker</title>
     {% endif %}
 </head>
 <body>
@@ -26,15 +26,16 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+              {% endif %}
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="{{ url_for('incident') }}">Add Incident</a>
-                <a class="nav-item nav-link" href="{{ url_for('register') }}">Create New User</a>
+                <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
+                <a class="nav-item nav-link" href="{{ url_for('register') }}">Create Account</a>
                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
-              {% else %}
-                <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
               {% endif %}
             </div>
           </div>

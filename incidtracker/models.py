@@ -1,5 +1,5 @@
 from datetime import datetime
-from incidtracker import db, login_manager
+from flaskblog import db, login_manager
 from flask_login import UserMixin
 
 
@@ -13,20 +13,22 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}')"
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 
-class Incident(db.Model):
+class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    date_resolved = db.Column(db.DateTime, nullable=True)
-    poc = db.Column(db.String(120), nullable=False)
-    tag = db.Column(db.String(20), nullable=False)
-    assignee = db.Column(db.String(20), db.ForeignKey('user.username'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    state = db.Column(db.Text, nullable=False)
+    tags = db.Column(db.Text, nullable=False)
+    assignee = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Incident('{self.category}', '{self.category}','{self.date_posted}'), '{self.poc}', '{self.assignee}'"
+        return f"Post('{self.title}', '{self.date_posted}')"
