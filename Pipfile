@@ -9,6 +9,10 @@ verify_ssl = true
 flask-sqlalchemy = "*"
 psycopg2 = "*"
 flask-migrate = "*"
+flask = "*"
+flask-bcrypt = "*"
+flask-login = "*"
+flask-wtf = "*"
 
 [requires]
 python_version = "3.7"
