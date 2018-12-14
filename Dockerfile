@@ -7,7 +7,7 @@ RUN pipenv install --system
 
 EXPOSE 5000
 
-RUN flask db init
+RUN flask db upgrade
 RUN flask db upgrade
 
-CMD ["python", "run.py"]
+CMD ["python", "app.py"]
